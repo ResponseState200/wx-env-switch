@@ -13,21 +13,20 @@
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getEnvList = exports.getCurrentEnvData = exports.exit = exports.changeEnv = exports.init = void 0;
-var envList = [];
 var sessionKeyStr = '';
 var currentEnvData = undefined;
 var init = function (envArr, sessionKey) {
     if (sessionKey === void 0) { sessionKey = 'developKey'; }
-    envList = envArr;
+    wx.setStorageSync('switchEnvListOnly', envArr);
     sessionKeyStr = sessionKey;
     var wxEnvVersion = wx.getAccountInfoSync().miniProgram.envVersion; // 微信当前环境
     var currentEnvKey = wx.getStorageSync(sessionKey);
-    currentEnvData = currentEnvKey ? envList.find(function (t) { return t.value === currentEnvKey; }) : envList.find(function (t) { return t.wxEnvVersion === wxEnvVersion; });
+    currentEnvData = currentEnvKey ? envArr.find(function (t) { return t.value === currentEnvKey; }) : envArr.find(function (t) { return t.wxEnvVersion === wxEnvVersion; });
     return currentEnvData;
 };
 exports.init = init;
 var changeEnv = function (value) {
-    var curData = envList.find(function (t) { return t.value === value; });
+    var curData = (0, exports.getEnvList)().find(function (t) { return t.value === value; });
     if (!curData) {
         throw new Error("传入的值在配置数组中不存在,请检查!");
         return;
@@ -45,6 +44,6 @@ var getCurrentEnvData = function () {
 };
 exports.getCurrentEnvData = getCurrentEnvData;
 var getEnvList = function () {
-    return envList;
+    return wx.getStorageSync('switchEnvListOnly') || [];
 };
 exports.getEnvList = getEnvList;

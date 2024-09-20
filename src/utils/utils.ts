@@ -18,20 +18,19 @@ interface EnvObj {
   [key: string]: any; // 表示可以有其他任意的可选属性
 }
 
-let envList:EnvObj[] = [];
 let sessionKeyStr:string = ''
 let currentEnvData:EnvObj | undefined = undefined;
 export const init = (envArr:EnvObj[], sessionKey:string = 'developKey'): EnvObj | undefined => {
-  envList = envArr;
+  wx.setStorageSync('switchEnvListOnly',envArr)
   sessionKeyStr = sessionKey;
   const wxEnvVersion = wx.getAccountInfoSync().miniProgram.envVersion // 微信当前环境
   const currentEnvKey = wx.getStorageSync(sessionKey)
-  currentEnvData = currentEnvKey ? envList.find((t:EnvObj) => t.value === currentEnvKey) : envList.find((t:EnvObj) => t.wxEnvVersion === wxEnvVersion)
+  currentEnvData = currentEnvKey ? envArr.find((t:EnvObj) => t.value === currentEnvKey) : envArr.find((t:EnvObj) => t.wxEnvVersion === wxEnvVersion)
   return currentEnvData
 };
 
 export const changeEnv = (value:string)=>{
-  const curData = envList.find((t:EnvObj) => t.value === value)
+  const curData = getEnvList().find((t:EnvObj) => t.value === value)
   if(!curData){
     throw new Error("传入的值在配置数组中不存在,请检查!");
     return
@@ -49,6 +48,6 @@ export const getCurrentEnvData = ()=>{
 }
 
 export const getEnvList = ()=>{
-  return envList
+  return wx.getStorageSync('switchEnvListOnly') || []
 }
 

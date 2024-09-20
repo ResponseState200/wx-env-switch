@@ -20,5 +20,5 @@ export declare const init: (envArr: EnvObj[], sessionKey?: string) => EnvObj | u
 export declare const changeEnv: (value: string) => void;
 export declare const exit: () => void;
 export declare const getCurrentEnvData: () => EnvObj | undefined;
-export declare const getEnvList: () => EnvObj[];
+export declare const getEnvList: () => any;
 export {};
