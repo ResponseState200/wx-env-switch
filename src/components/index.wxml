@@ -1,0 +1,23 @@
+<view class='container'>
+    <view class='mark' bind:tap="handleClose"></view>
+    <view class="section">
+      <view class='title'>
+        环境切换
+      </view>
+      <view class='section-item'>
+        <view class="section__title">当前环境</view>
+          <picker bindchange="bindPickerChange" value="{{index}}" range="{{envList}}" range-key="label">
+              <view class="picker">
+                  {{currentEnvData.label}} >
+              </view>
+          </picker>
+      </view>
+
+      <view style="margin-top: 30rpx;">
+        <button type='primary' bind:tap="handleConfirm">确定并退出</button>
+        <view style="color:red;font-size: 22rpx;text-align: center;">
+          需要手动重新进入小程序,环境切换才可生效
+        </view>
+      </view>
+    </view>
+</view>

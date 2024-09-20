@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es5",
+    "lib": ["es2015", "dom"],  // 添加 ES2015 及其他库
+    "outDir": "./src/components",  // 输出到 dist/utils 文件夹
+    "declaration": true,       // 生成 .d.ts 类型声明文件
+    "esModuleInterop": true,
+    "strict": true,
+    "skipLibCheck": true,  // 添加这一行
+    "typeRoots": [
+      "node_modules/miniprogram-api-typings"
+    ]
+  },
+  "include": ["src/utils/**/*"],  // 只编译工具函数目录
+  "exclude": ["node_modules"]
+}
