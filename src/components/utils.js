@@ -13,14 +13,12 @@
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getEnvList = exports.getCurrentEnvData = exports.exit = exports.changeEnv = exports.init = void 0;
-var sessionKeyStr = '';
+var sessionKeyStr = 'switchEnvDevelopKey';
 var currentEnvData = undefined;
-var init = function (envArr, sessionKey) {
-    if (sessionKey === void 0) { sessionKey = 'developKey'; }
+var init = function (envArr) {
     wx.setStorageSync('switchEnvListOnly', envArr);
-    sessionKeyStr = sessionKey;
     var wxEnvVersion = wx.getAccountInfoSync().miniProgram.envVersion; // 微信当前环境
-    var currentEnvKey = wx.getStorageSync(sessionKey);
+    var currentEnvKey = wx.getStorageSync(sessionKeyStr);
     currentEnvData = currentEnvKey ? envArr.find(function (t) { return t.value === currentEnvKey; }) : envArr.find(function (t) { return t.wxEnvVersion === wxEnvVersion; });
     return currentEnvData;
 };

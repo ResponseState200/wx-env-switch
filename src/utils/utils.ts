@@ -18,13 +18,12 @@ interface EnvObj {
   [key: string]: any; // 表示可以有其他任意的可选属性
 }
 
-let sessionKeyStr:string = ''
+let sessionKeyStr:string = 'switchEnvDevelopKey'
 let currentEnvData:EnvObj | undefined = undefined;
-export const init = (envArr:EnvObj[], sessionKey:string = 'developKey'): EnvObj | undefined => {
+export const init = (envArr:EnvObj[]): EnvObj | undefined => {
   wx.setStorageSync('switchEnvListOnly',envArr)
-  sessionKeyStr = sessionKey;
   const wxEnvVersion = wx.getAccountInfoSync().miniProgram.envVersion // 微信当前环境
-  const currentEnvKey = wx.getStorageSync(sessionKey)
+  const currentEnvKey = wx.getStorageSync(sessionKeyStr)
   currentEnvData = currentEnvKey ? envArr.find((t:EnvObj) => t.value === currentEnvKey) : envArr.find((t:EnvObj) => t.wxEnvVersion === wxEnvVersion)
   return currentEnvData
 };

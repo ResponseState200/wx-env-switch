@@ -16,7 +16,7 @@ interface EnvObj {
     wxEnvVersion: 'develop' | 'trial' | 'release';
     [key: string]: any;
 }
-export declare const init: (envArr: EnvObj[], sessionKey?: string) => EnvObj | undefined;
+export declare const init: (envArr: EnvObj[]) => EnvObj | undefined;
 export declare const changeEnv: (value: string) => void;
 export declare const exit: () => void;
 export declare const getCurrentEnvData: () => EnvObj | undefined;
