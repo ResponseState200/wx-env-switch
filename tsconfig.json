@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
-    "target": "es5",
-    "lib": ["es2015", "dom"],  // 添加 ES2015 及其他库
+    "module": "ESNext",
+    "target": "es6",
+    "lib": ["es6", "dom"],  // 添加 ES2015 及其他库
     "outDir": "./src/components",  // 输出到 dist/utils 文件夹
     "declaration": true,       // 生成 .d.ts 类型声明文件
     "esModuleInterop": true,
