@@ -4,19 +4,29 @@ interface EnvObj {
     [key: string]: any;
 }
 /**
- *
- * @param envArr 每个环境的配置 [
- *  {
- *    label:'开发',
- *    wxEnvVersion:;'develop', // 微信小程序的环境
- *    ...other, // 其他自定义需要用到的字段,可以自己添加,上述三个字段是必须的
- *  }
- * ]
- * @param defaultWxEnvVersion string 存放在sessionStorage中的key值
+ * 获取环境配置列表
+ * @returns 配置列表
+ */
+export declare const getEnvList: () => EnvObj[];
+/**
+ * 初始化环境配置
+ * @param envArr 环境配置数组
+ * @param defaultWxEnvVersion 默认环境版本，默认为 'develop'
+ * @returns 当前环境配置对象
  */
 export declare const init: (envArr: EnvObj[], defaultWxEnvVersion?: string) => EnvObj | undefined;
-export declare const changeEnv: (wxEnvVersion: string) => void;
+/**
+ * 切换环境
+ * @param wxEnvVersion 要切换到的环境版本
+ */
+export declare const changeEnv: (wxEnvVersion: "develop" | "trial" | "release") => void;
+/**
+ * 获取当前环境配置
+ * @returns 当前环境配置对象
+ */
+export declare const getCurrentEnvData: () => EnvObj | undefined;
+/**
+ * 退出小程序或重启应用
+ */
 export declare const exit: () => void;
-export declare const getCurrentEnvData: () => any;
-export declare const getEnvList: () => any;
 export {};
