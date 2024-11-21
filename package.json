@@ -1,12 +1,13 @@
 {
   "name": "wx-env-switch",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "",
   "files": [
     "src/components"
   ],
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "publish": "npm publish --registry https://registry.npmjs.org"
   },
   "keywords": [],
   "author": "529968905@qq.com",

@@ -16,19 +16,16 @@ import {init} from './miniprogram_npm/wx-env-switch/components/utils'
 const arrData = [
   {
     label:'开发',
-    value:'dev',
     wxEnvVersion:'develop',
     apiUrl:'http://xxxx-dev.com'
   },
   {
     label:'测试',
-    value:'test',
     wxEnvVersion:'trial',
     apiUrl:'http://xxxx-test.com'
   },
   {
     label:'生产',
-    value:'prod',
     wxEnvVersion:'release',
     apiUrl:'http://xxxx-prod.com'
   },
@@ -72,24 +69,21 @@ const axiosInstance = new Request({
 
 2,在**main.js**中,初始化插件
 ```javascript
-const { init } = require('/wxcomponents/wx-switch-env/utils.js')
+import {init} from "../../wxcomponents/env-switch/utils.js"
 // 你的环境配置数据
 const arrData = [
   {
     label: '开发',
-    value: 'dev',
     wxEnvVersion: 'develop',
     apiUrl: 'http://xxxx-dev.com'
   },
   {
     label: '测试',
-    value: 'test',
     wxEnvVersion: 'trial',
     apiUrl: 'http://xxxx-test.com'
   },
   {
     label: '生产',
-    value: 'prod',
     wxEnvVersion: 'release',
     apiUrl: 'http://xxxx-prod.com'
   }
@@ -101,7 +95,7 @@ init(arrData)
 3, 在http请求的插件上,获取当前的环境配置
 ```javascript
 
-const {getCurrentEnvData} = require('/wxcomponents/wx-switch-env/utils.js')
+import {getCurrentEnvData} from "@/wxcomponents/env-switch/utils.js"
 
 const envData = getCurrentEnvData()
 const axiosInstance = new Request({
@@ -176,7 +170,6 @@ const handleShowSwtich = () => {
 | 参数         | 说明                                                         | 类型                              | 必填   |
 | ------------ | ------------------------------------------------------------ | --------------------------------- | ------ |
 | label        | 显示在选择器的字段,一般为中文                                | string                            | 必填   |
-| value        | 选中某个环境,要保存到session中的值,不能重复                  | string                            | 必填   |
 | wxEnvVersion | 微信小程序当前运行环境的标识,用于小程序在某个环境下的获取对应默认的配置,当选择某个value作为session保存之后,获取环境数据会优先根据session获取 | 'develop' \| 'trial' \| 'release' | 必填   |
 | key: string  | 支持用户根据自己的业务以key:value的形式传入任何数据          | any                               | 非必填 |
 

@@ -19,7 +19,7 @@ Component({
       })
     },
     handleConfirm(){
-      changeEnv(this.data.currentEnvData.value)
+      changeEnv(this.data.currentEnvData.wxEnvVersion)
       if (typeof this.data.confirmFn === 'function') {
         this.data.confirmFn(); // 调用传入的函数
       }else{

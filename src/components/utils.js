@@ -1,17 +1,4 @@
-/**
- *
- * @param envArr 每个环境的配置 [
- *  {
- *    label:'开发',
- *    value:'dev',
- *    wxEnvVersion:;'develop', // 微信小程序的环境
- *    ...other, // 其他自定义需要用到的字段,可以自己添加,上述三个字段是必须的
- *  }
- * ]
- * @param sessionKey string 存放在sessionStorage中的key值
- */
-let currentEnvData = undefined;
-const envDataStoreKey = 'currentEnvData';
+let envDataStoreKey = 'currentEnvData';
 // 根据环境选择使用 uni 或 wx 的存储方法
 const setStorageSync = (key, value) => {
     if (typeof uni !== 'undefined') {
@@ -30,25 +17,33 @@ const getStorageSync = (key) => {
     }
     return null; // 防止返回 undefined
 };
+/**
+ *
+ * @param envArr 每个环境的配置 [
+ *  {
+ *    label:'开发',
+ *    wxEnvVersion:;'develop', // 微信小程序的环境
+ *    ...other, // 其他自定义需要用到的字段,可以自己添加,上述三个字段是必须的
+ *  }
+ * ]
+ * @param defaultWxEnvVersion string 存放在sessionStorage中的key值
+ */
 export const init = (envArr, defaultWxEnvVersion = 'develop') => {
     setStorageSync('switchEnvListOnly', envArr);
     // 默认使用 develop 环境，微信小程序通过 wx.getAccountInfoSync 获取环境
-    let wxEnvVersion = defaultWxEnvVersion;
+    envDataStoreKey = defaultWxEnvVersion;
     if (typeof wx !== 'undefined' && typeof wx.getAccountInfoSync === 'function') {
-        wxEnvVersion = wx.getAccountInfoSync().miniProgram.envVersion;
+        envDataStoreKey = wx.getAccountInfoSync().miniProgram.envVersion;
     }
-    currentEnvData = getStorageSync(envDataStoreKey) || envArr.find((t) => t.wxEnvVersion === wxEnvVersion);
-    setStorageSync(envDataStoreKey, currentEnvData);
-    return currentEnvData;
+    return getCurrentEnvData();
 };
-export const changeEnv = (value) => {
-    const curData = getEnvList().find((t) => t.value === value);
+export const changeEnv = (wxEnvVersion) => {
+    const curData = getEnvList().find((t) => t.wxEnvVersion === wxEnvVersion);
     if (!curData) {
         throw new Error("传入的值在配置数组中不存在,请检查!");
         return;
     }
-    setStorageSync(envDataStoreKey, curData);
-    currentEnvData = curData;
+    setStorageSync(envDataStoreKey, wxEnvVersion);
 };
 export const exit = () => {
     if (typeof wx !== 'undefined' && typeof wx.exitMiniProgram === 'function') {
@@ -59,7 +54,9 @@ export const exit = () => {
     }
 };
 export const getCurrentEnvData = () => {
-    return getStorageSync(envDataStoreKey);
+    const storeValue = getStorageSync(envDataStoreKey);
+    const envList = getEnvList();
+    return envList.find((t) => t.wxEnvVersion === storeValue) || envList.find((t) => t.wxEnvVersion === envDataStoreKey);
 };
 export const getEnvList = () => {
     return getStorageSync('switchEnvListOnly') || [];
