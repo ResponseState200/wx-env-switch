@@ -1,5 +1,5 @@
 
-.container{
+.wx-env-container{
   position: absolute;
   top:0;
   left:0;
@@ -7,7 +7,7 @@
   bottom:0;
   z-index: 2;
 }
-.mark{
+.wx-env-mark{
   position: absolute;
   top:0;
   left:0;
@@ -16,7 +16,7 @@
   background-color: rgba(0,0,0, 0.2);
 }
 
-.section{
+.wx-env-section{
   position: absolute;
   z-index: 2;
   width: 500rpx;
@@ -29,18 +29,24 @@
   padding:15rpx;
 }
 
-.section-item{
+.wx-env-section-item{
   display: flex;
   align-items: center;
   justify-content: space-between;
   border-bottom:1rpx solid #ccc;
   padding-bottom:20rpx;
 }
-.title{
+.wx-env-title{
   text-align: center;
-  font-size: 22px;
   margin-bottom: 40rpx;
 }
-.section__title{
+.wx-env-section__title{
   color:#aaa
+}
+
+.wx-env-hint{
+  color:#aaa;
+  font-size: 22rpx;
+  text-align: center;
+  margin-top:15rpx;
 }
