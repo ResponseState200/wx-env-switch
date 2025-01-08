@@ -64,7 +64,7 @@ const axiosInstance = new Request({
 
 ### 在vue-cli创建的uniapp写的微信小程序中使用
 
-1,在src下创建一个wxcomponents的目录,这个是uniapp的官方要求,然后将插件的env-switch整个文件夹拷贝到wxcomponents中
+1,在src下创建一个wxcomponents的目录,这个是uniapp的官方要求,然后在node_modules文件中找到wx-env-switch,将插件中的src文件夹整个文件夹拷贝到wxcomponents中
 
 
 2,在**main.js**中,初始化插件
